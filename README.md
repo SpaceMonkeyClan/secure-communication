@@ -25,7 +25,11 @@ You can choose either OpenSSL Crypto Library or you can use Java Cryptography Ar
 # Deliverables
 
 A report which includes following components.
+
 Explanations of your system design, particular algorithms used, key lengths used, etc, and a brief explanation on how to use your programs. All the requirements above should be met.
+
 Security analysis of your system, i.e., general security level, vulnerabilities and possible attacks.
+
 Discussions of possible countermeasures to the attack analyzed in b.
+
 Well-commented source codes.
