@@ -1,9 +1,20 @@
-/**
+ /**
  * CS4600 - Secure Communication - HW#3
  * Author: Rene. B Dena
  * Last Modified: 8/5/21
  * File Name: Sender.java
  */
+
+ // _______________________Task to complete_________________________________
+
+ /**
+  * 1.) The two parties have each other’s RSA public key. Each of them holds his/her own RSA private key.
+  * 2.) Each party’s message (from a .txt file) is encrypted using AES before sending it to another party.
+  * 3.) The AES key used in 2) is encrypted using the receiver’s RSA public key. The encrypted AES key is sent together
+  *     with the encrypted message obtained from 2).
+  * 4.) Message authentication code should be appended to data transmitted. You are free to choose the specific protocol
+  *     of MAC.
+  */
 
 // _______________________Modules___________________________________________
 
@@ -17,6 +28,7 @@ import java.util.*;
 
 public class Sender
 {
+    // Task 1 - Create RSA public key and RSA private key
     // Generates RSA key pair and writes the private key to `sender.private.key` and public key to `sender.public.key`
     public void generateKeyPair() throws Exception
     {
@@ -45,6 +57,7 @@ public class Sender
         this.message = message;
     }
 
+    // Task 2 - Encrypt using AES
     // Encrypts the message to send.
     public void encryptMessage() throws Exception
     {
@@ -68,6 +81,7 @@ public class Sender
         aesCipher.init(Cipher.ENCRYPT_MODE, aesKey);
         encryptedMessage = aesCipher.doFinal(message.getBytes());
 
+        // Task 3 - AES key encrypted using the `receiverPublicKey` The encrypted AES key is sent together with the encrypted message obtained from 2).
         // Encrypts the key
         Cipher rsaCipher = Cipher.getInstance(RSA);
         rsaCipher.init(Cipher.ENCRYPT_MODE, receiverPublicKey);
@@ -79,6 +93,8 @@ public class Sender
         macBytes = mac.doFinal(message.getBytes());
     }
 
+    // Task 3 - Encrypted AES key is sent with the encrypted message
+    // Task 4 - Message authentication appended to Transmitted_Data
     // Writes the message to `Transmitted_Data`.
     public void sendMessage() throws Exception
     {

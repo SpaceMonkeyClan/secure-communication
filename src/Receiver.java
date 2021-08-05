@@ -1,9 +1,16 @@
-/**
+ /**
  * CS4600 - Secure Communication - HW#3
  * Author: Rene. B Dena
  * Last Modified: 8/5/21
  * File Name: Receiver.java
  */
+
+ // _______________________Task to complete_________________________________
+
+ /**
+  * 1.) The two parties have each other’s RSA public key. Each of them holds his/her own RSA private key.
+  * 5.) The receiver should be able to successfully authenticate, decrypt the message, and read the original message.
+  */
 
 // _______________________Modules___________________________________________
 
@@ -18,6 +25,7 @@ import java.util.*;
 
 public class Receiver
 {
+    // Task 1 - Create RSA public key and RSA private key
     // Generates RSA key pair and writes the private key to `receiver.private.key` and public key to `receiver.public.key`
     public void generateKeyPair() throws Exception
     {
@@ -52,6 +60,7 @@ public class Receiver
         br.close();
     }
 
+    // Task 5 - Authenticate, decrypt the message, and read the original message.
     // Decrypts the message to read.
     public void decryptMessage() throws Exception
     {
