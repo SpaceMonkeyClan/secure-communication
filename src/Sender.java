@@ -79,10 +79,10 @@ public class Sender
         macBytes = mac.doFinal(message.getBytes());
     }
 
-    // Writes the message to `data.transmitted`.
+    // Writes the message to `Transmitted_Data`.
     public void sendMessage() throws Exception
     {
-        FileOutputStream transmittedDataFile = new FileOutputStream("data.transmitted");
+        FileOutputStream transmittedDataFile = new FileOutputStream("Transmitted_Data");
 
         // Message
         transmittedDataFile.write(Base64.getEncoder().encodeToString(encryptedMessage).getBytes());
