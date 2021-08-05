@@ -2,7 +2,7 @@
  * CS4600 - Secure Communication - HW#3
  * Author: Rene. B Dena
  * Last Modified: 8/5/21
- * File Name: Demo.java
+ * File Name: Main.java
  */
 
  // ____________________Requirements_______________________________________
@@ -32,7 +32,7 @@
 
 // _______________________Start Script________________________________________
 
-public class Demo
+public class Main
 {
     public static void main(String[] args) throws Exception
     {
