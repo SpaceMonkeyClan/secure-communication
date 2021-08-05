@@ -1,7 +1,7 @@
 /**
- * CS4600 - ??? - HW#3
+ * CS4600 - Secure Communication - HW#3
  * Author: Rene. B Dena
- * Last Modified: 8/2/21
+ * Last Modified: 8/5/21
  * File Name: Demo.java
 */
 
@@ -20,11 +20,6 @@ public class Demo
         Receiver receiver = new Receiver();
 
         // Generating key pairs for both sender and receiver
-
-        // generating key pairs
-        // for both sender and
-        // receiver
-
         sender.generateKeyPair();
         receiver.generateKeyPair();
 

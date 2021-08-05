@@ -1,7 +1,7 @@
 /**
- * CS4600 - ??? - HW#3
+ * CS4600 - Secure Communication - HW#3
  * Author: Rene. B Dena
- * Last Modified: 8/2/21
+ * Last Modified: 8/5/21
  * File Name: Receiver.java
  */
 
@@ -18,14 +18,10 @@ import java.util.*;
 
 public class Receiver
 {
-    /**
-     * Generates RSA key pair and writes
-     * the private key to receiver.private.key
-     * and public key to receiver.public.key.
-     */
+    // Generates RSA key pair and writes the private key to `receiver.private.key` and public key to `receiver.public.key`
     public void generateKeyPair() throws Exception
     {
-        // generating key pair
+        // Generates key pair
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(RSA);
         keyPairGenerator.initialize(2048, secureRandom);
         KeyPair keyPair = keyPairGenerator.generateKeyPair();
@@ -33,20 +29,18 @@ public class Receiver
         receiverPrivateKey = keyPair.getPrivate();
         receiverPublicKey = keyPair.getPublic();
 
-        // writing private key of receiver
+        // Writes private key of receiver
         FileOutputStream receiverPrivateKeyFile = new FileOutputStream("receiver.private.key");
         receiverPrivateKeyFile.write(Base64.getEncoder().encodeToString(receiverPrivateKey.getEncoded()).getBytes());
         receiverPrivateKeyFile.close();
 
-        // writing public key of receiver
+        // Writes public key of receiver
         FileOutputStream receiverPublicKeyFile = new FileOutputStream("receiver.public.key");
         receiverPublicKeyFile.write(Base64.getEncoder().encodeToString(receiverPublicKey.getEncoded()).getBytes());
         receiverPublicKeyFile.close();
     }
 
-    /**
-     * Reads the message from Transmitted_Data.
-     */
+    // Reads the message from `Transmitted_Data`
     public void receiveMessage() throws Exception
     {
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("Transmitted_Data")));
@@ -58,12 +52,10 @@ public class Receiver
         br.close();
     }
 
-    /**
-     * Decrypts the message read.
-     */
+    // Decrypts the message to read.
     public void decryptMessage() throws Exception
     {
-        // reading senderPublicKey
+        // Reads senderPublicKey
         FileInputStream senderPublicKeyFile = new FileInputStream("sender.public.key");
         byte[] senderPublicKeyBytes = new byte[senderPublicKeyFile.available()];
         senderPublicKeyFile.read(senderPublicKeyBytes);
@@ -73,24 +65,24 @@ public class Receiver
         KeyFactory keyFactory = KeyFactory.getInstance(RSA, "SunRsaSign");
         senderPublicKey = keyFactory.generatePublic(pubKeySpec);
 
-        // decrypting AES key
+        // Decrypts AES key
         byte[] decodedKey = Base64.getDecoder().decode(encryptedKey);
         Cipher rsaCipher = Cipher.getInstance(RSA);
         rsaCipher.init(Cipher.DECRYPT_MODE, receiverPrivateKey);
         decodedKey = rsaCipher.doFinal(decodedKey);
         SecretKey aesKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
 
-        // decrypt message
+        // Decrypts the message
         byte[] decodedMessage = Base64.getDecoder().decode(encryptedMessage);
         Cipher aesCipher = Cipher.getInstance(AES);
         aesCipher.init(Cipher.DECRYPT_MODE, aesKey);
         decodedMessage = aesCipher.doFinal(decodedMessage);
         message = new String(decodedMessage);
 
-        // decrypt Mac
+        // Decrypts MAC
         byte[] decryptedMacBytes = Base64.getDecoder().decode(macBytes);
 
-        // generating Mac
+        // Generating of MAC
         Mac mac = Mac.getInstance("HmacSHA256");
         mac.init(aesKey);
         macBytes = mac.doFinal(message.getBytes());
@@ -99,9 +91,7 @@ public class Receiver
                 (Arrays.equals(macBytes, decryptedMacBytes) ? "successful" : "failed"));
     }
 
-    /**
-     * Gets the message received.
-     */
+    // Gets the message.
     public String getMessage()
     {
         return message;

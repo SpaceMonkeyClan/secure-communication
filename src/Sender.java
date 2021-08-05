@@ -1,7 +1,7 @@
 /**
- * CS4600 - ??? - HW#3
+ * CS4600 - Secure Communication - HW#3
  * Author: Rene. B Dena
- * Last Modified: 8/2/21
+ * Last Modified: 8/5/21
  * File Name: Sender.java
  */
 
@@ -17,7 +17,6 @@ import java.util.*;
 
 public class Sender
 {
-
     // Generates RSA key pair and writes the private key to `sender.private.key` and public key to `sender.public.key`
     public void generateKeyPair() throws Exception
     {
@@ -40,7 +39,7 @@ public class Sender
         senderPublicKeyFile.close();
     }
 
-    // Sets the message to send. @param message The message to send.
+    // Grabs the message to send.
     public void setMessage(String message)
     {
         this.message = message;
@@ -74,7 +73,7 @@ public class Sender
         rsaCipher.init(Cipher.ENCRYPT_MODE, receiverPublicKey);
         encryptedKey = rsaCipher.doFinal(aesKey.getEncoded());
 
-        // Mac
+        // MAC
         Mac mac = Mac.getInstance("HmacSHA256");
         mac.init(aesKey);
         macBytes = mac.doFinal(message.getBytes());
@@ -113,6 +112,5 @@ public class Sender
     private static final String RSA = "RSA";
     private static final String AES = "AES";
 }
-
 
 // _______________________End Class________________________________________
