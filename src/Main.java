@@ -37,7 +37,7 @@ public class Main
     public static void main(String[] args) throws Exception
     {
         // Initiates the message to send
-        String senderMessage = "Hello, world!";
+        String senderMessage = "Hello, this message is to be encrypted then decrypted!";
         String receiverMessage = null;
 
         // Creating the sender and receiver objects
@@ -59,8 +59,8 @@ public class Main
         receiverMessage = receiver.getMessage();
 
         // Printing of the sent and received messages
-        System.out.println("Sent message: " + senderMessage);
-        System.out.println("Received message: " + receiverMessage);
+        System.out.println("Message sent: " + senderMessage);
+        System.out.println("Message Received: " + receiverMessage);
     }
 }
 
