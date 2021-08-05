@@ -40,10 +40,10 @@ public class Receiver
         receiverPublicKeyFile.close();
     }
 
-    // Reads the message from `Transmitted_Data`
+    // Reads the message from `data.transmitted`
     public void receiveMessage() throws Exception
     {
-        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("Transmitted_Data")));
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("data.transmitted")));
 
         encryptedMessage = br.readLine().getBytes();
         encryptedKey = br.readLine().getBytes();
