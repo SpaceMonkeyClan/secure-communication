@@ -20,6 +20,11 @@ public class Demo
         Receiver receiver = new Receiver();
 
         // Generating key pairs for both sender and receiver
+
+        // generating key pairs
+        // for both sender and
+        // receiver
+
         sender.generateKeyPair();
         receiver.generateKeyPair();
 
