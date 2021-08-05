@@ -11,7 +11,7 @@ public class Demo
         Sender sender = new Sender();
         Receiver receiver = new Receiver();
 
-        // generating keypairs
+        // generating key pairs
         // for both sender and
         // receiver
         sender.generateKeyPair();
