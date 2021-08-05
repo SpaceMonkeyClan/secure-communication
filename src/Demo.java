@@ -1,34 +1,42 @@
+/**
+ * CS4600 - ??? - HW#3
+ * Author: Rene. B Dena
+ * Last Modified: 8/2/21
+ * File Name: Demo.java
+*/
+
+// _______________________Start Script________________________________________
+
 public class Demo
 {
     public static void main(String[] args) throws Exception
     {
-        // messages
+        // Initiates the message to send
         String senderMessage = "Hello, world!";
         String receiverMessage = null;
 
-        // creating the sender and
-        // receiver objects
+        // Creating the sender and receiver objects
         Sender sender = new Sender();
         Receiver receiver = new Receiver();
 
-        // generating keypairs
-        // for both sender and
-        // receiver
+        // Generating key pairs for both sender and receiver
         sender.generateKeyPair();
         receiver.generateKeyPair();
 
-        // sending the message
+        // Sets, encrypts, and sends the message
         sender.setMessage(senderMessage);
         sender.encryptMessage();
         sender.sendMessage();
 
-        // receiving the message
+        // Receives, decrypts, and sets received message to variable
         receiver.receiveMessage();
         receiver.decryptMessage();
         receiverMessage = receiver.getMessage();
 
-        // printing the messages
+        // Printing of the sent and received messages
         System.out.println("Sent message: " + senderMessage);
         System.out.println("Received message: " + receiverMessage);
     }
 }
+
+// _______________________End Script________________________________________

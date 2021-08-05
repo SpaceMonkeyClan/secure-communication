@@ -1,19 +1,27 @@
+/**
+ * CS4600 - ??? - HW#3
+ * Author: Rene. B Dena
+ * Last Modified: 8/2/21
+ * File Name: Sender.java
+ */
+
+// _______________________Modules___________________________________________
+
 import java.security.*;
 import java.security.spec.*;
 import javax.crypto.*;
 import java.io.*;
 import java.util.*;
 
+// _______________________Start Class________________________________________
+
 public class Sender
 {
-    /**
-     * Generates RSA key pair and writes
-     * the private key to sender.private.key
-     * and public key to sender.public.key.
-     */
+
+    // Generates RSA key pair and writes the private key to `sender.private.key` and public key to `sender.public.key`
     public void generateKeyPair() throws Exception
     {
-        // generating key pair
+        // Generates key pair
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(RSA);
         keyPairGenerator.initialize(2048, secureRandom);
         KeyPair keyPair = keyPairGenerator.generateKeyPair();
@@ -21,32 +29,27 @@ public class Sender
         PrivateKey senderPrivateKey = keyPair.getPrivate();
         PublicKey senderPublicKey = keyPair.getPublic();
 
-        // writing private key of sender
+        // Writes private key of sender
         FileOutputStream senderPrivateKeyFile = new FileOutputStream("sender.private.key");
         senderPrivateKeyFile.write(Base64.getEncoder().encodeToString(senderPrivateKey.getEncoded()).getBytes());
         senderPrivateKeyFile.close();
 
-        // writing public key of sender
+        // Writes public key of sender
         FileOutputStream senderPublicKeyFile = new FileOutputStream("sender.public.key");
         senderPublicKeyFile.write(Base64.getEncoder().encodeToString(senderPublicKey.getEncoded()).getBytes());
         senderPublicKeyFile.close();
     }
 
-    /**
-     * Sets the message to send.
-     * @param   message     The message to send.
-     */
+    // Sets the message to send. @param message The message to send.
     public void setMessage(String message)
     {
         this.message = message;
     }
 
-    /**
-     * Encrypts the message to send.
-     */
+    // Encrypts the message to send.
     public void encryptMessage() throws Exception
     {
-        // reading receiverPublicKey
+        // Reads `receiverPublicKey`
         FileInputStream receiverPublicKeyFile = new FileInputStream("receiver.public.key");
         byte[] receiverPublicKeyBytes = new byte[receiverPublicKeyFile.available()];
         receiverPublicKeyFile.read(receiverPublicKeyBytes);
@@ -56,17 +59,17 @@ public class Sender
         KeyFactory keyFactory = KeyFactory.getInstance("RSA", "SunRsaSign");
         receiverPublicKey = keyFactory.generatePublic(pubKeySpec);
 
-        // generating AES key
+        // Generates AES key
         KeyGenerator keyGenerator = KeyGenerator.getInstance(AES);
         keyGenerator.init(secureRandom);
         SecretKey aesKey = keyGenerator.generateKey();
 
-        // encrypting the message
+        // Encrypts the message
         Cipher aesCipher = Cipher.getInstance(AES);
         aesCipher.init(Cipher.ENCRYPT_MODE, aesKey);
         encryptedMessage = aesCipher.doFinal(message.getBytes());
 
-        // encrypting the key
+        // Encrypts the key
         Cipher rsaCipher = Cipher.getInstance(RSA);
         rsaCipher.init(Cipher.ENCRYPT_MODE, receiverPublicKey);
         encryptedKey = rsaCipher.doFinal(aesKey.getEncoded());
@@ -77,22 +80,20 @@ public class Sender
         macBytes = mac.doFinal(message.getBytes());
     }
 
-    /**
-     * Writes the message to Transmitted_Data.
-     */
+    // Writes the message to `Transmitted_Data`.
     public void sendMessage() throws Exception
     {
         FileOutputStream transmittedDataFile = new FileOutputStream("Transmitted_Data");
 
-        // message
+        // Message
         transmittedDataFile.write(Base64.getEncoder().encodeToString(encryptedMessage).getBytes());
         transmittedDataFile.write('\n');
 
-        // key
+        // Key
         transmittedDataFile.write(Base64.getEncoder().encodeToString(encryptedKey).getBytes());
         transmittedDataFile.write('\n');
 
-        // mac
+        // Mac
         transmittedDataFile.write(Base64.getEncoder().encodeToString(macBytes).getBytes());
         transmittedDataFile.write('\n');
 
@@ -112,3 +113,6 @@ public class Sender
     private static final String RSA = "RSA";
     private static final String AES = "AES";
 }
+
+
+// _______________________End Class________________________________________

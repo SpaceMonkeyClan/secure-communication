@@ -1,9 +1,20 @@
+/**
+ * CS4600 - ??? - HW#3
+ * Author: Rene. B Dena
+ * Last Modified: 8/2/21
+ * File Name: Receiver.java
+ */
+
+// _______________________Modules___________________________________________
+
 import java.security.*;
 import java.security.spec.*;
 import javax.crypto.*;
 import javax.crypto.spec.*;
 import java.io.*;
 import java.util.*;
+
+// _______________________Start Class________________________________________
 
 public class Receiver
 {
@@ -109,3 +120,6 @@ public class Receiver
     private static final String RSA = "RSA";
     private static final String AES = "AES";
 }
+
+
+// _______________________End Class________________________________________
