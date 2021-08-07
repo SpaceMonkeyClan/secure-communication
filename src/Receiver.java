@@ -97,7 +97,7 @@ public class Receiver
         macBytes = mac.doFinal(message.getBytes());
 
         System.out.println("Mac Authentication: " +
-                (Arrays.equals(macBytes, decryptedMacBytes) ? "successful" : "failed"));
+                (Arrays.equals(macBytes, decryptedMacBytes) ? "Successful" : "Failed"));
     }
 
     // Gets the message.
