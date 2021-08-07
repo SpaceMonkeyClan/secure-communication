@@ -59,7 +59,7 @@ public class Main
         receiverMessage = receiver.getMessage();
 
         // Printing of the sent and received messages
-        System.out.println("Message sent: " + senderMessage);
+        System.out.println("Message Sent: " + senderMessage);
         System.out.println("Message Received: " + receiverMessage);
     }
 }
