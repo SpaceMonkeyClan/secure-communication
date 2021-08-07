@@ -87,7 +87,7 @@ public class Sender
         rsaCipher.init(Cipher.ENCRYPT_MODE, receiverPublicKey);
         encryptedKey = rsaCipher.doFinal(aesKey.getEncoded());
 
-        // MAC
+        // Generating of MAC
         Mac mac = Mac.getInstance("HmacSHA256");
         mac.init(aesKey);
         macBytes = mac.doFinal(message.getBytes());
